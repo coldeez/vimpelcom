@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "MyFirstProgram"
+
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.scream3r:jssc:2.8.0'
+}
