@@ -1,17 +1,17 @@
 package appmanager;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.browsermob.proxy.ProxyServer;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.File;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +24,7 @@ public class ApplicationManager {
     public NavigationHelper navigationHelper;
     private String browser;
     private static ApplicationManager instance;
+
 
     public static ApplicationManager getInstance() {
         if(instance == null) {
@@ -40,8 +41,11 @@ public class ApplicationManager {
     }
 
 
-    public void init() throws IOException {
-        wd = new FirefoxDriver();
+    public void init() throws Exception {
+        ProfilesIni profile = new ProfilesIni();
+
+        FirefoxProfile myprofile = profile.getProfile("profileToolsQA");
+        wd = new FirefoxDriver(myprofile);
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         navigationHelper = new NavigationHelper(wd);
     }

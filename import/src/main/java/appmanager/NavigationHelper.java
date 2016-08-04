@@ -1,11 +1,14 @@
 package appmanager;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
+import model.Users;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
 
 /**
  * Created by kosty on 04.08.2016.
@@ -17,17 +20,44 @@ public class NavigationHelper extends HelperBase {
     }
 
 
-    public void contractsPage() {
+    public void contractsPage(String login, String password) {
         wd.get("https://" + login + ":" + password + "@agent.beeline.ru/operator/showUploadContractsForm.do");
+    }
+    public void invoicesPage() {
+        wd.get("https://agent.beeline.ru/operator/showUploadClientInvoices.do");
+    }
+
+    public void chooseFile(String filename) {
+        wd.findElement(By.name("uploadFile")).sendKeys("C:\\contracts\\" + filename + ".txt");
+    }
+
+    public void successfulUpload(Users user) {
+        user.withStatus("OK");
+    }
+    public void failUpload(Users user) {
+        user.withStatus("FAIL");
+    }
+
+    public void confirmUpload() {
+        click(By.name("upload"));
+    }
+    public void saveFile(List<Users> users, File file) throws IOException {
+        Writer writer = new FileWriter(file);
+        for (Users user : users) {
+            writer.write(String.format("%s;%s;%s;%s\n",
+                    user.getUser(),user.getLogin(), user.getPassword(), user.getStatus()));
+        }
+        writer.close();
     }
 
 
-    public void authorize() {
-        WebDriverWait wait = new WebDriverWait(wd, 2);
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = wd.switchTo().alert();
-        alert.accept();
 
 
+    public void quit() {
+        click(By.id("exitLink"));
+    }
+
+    public void chooseFileInvoice(String filename) {
+        wd.findElement(By.name("uploadFile")).sendKeys("C:\\invoices\\" + filename + ".txt");
     }
 }
