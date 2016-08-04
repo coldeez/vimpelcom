@@ -28,6 +28,7 @@ public class Main {
             app.goTo().invoicesPage();
             app.navigationHelper.chooseFileInvoice(user.getUser());
 /*            app.navigationHelper.confirmUpload();*/
+            app.navigationHelper.checkStatus(user);
 
          }
         app.navigationHelper.saveFile(users,(new File ("import/src/resources/users.csv")));

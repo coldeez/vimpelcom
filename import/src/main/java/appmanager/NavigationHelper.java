@@ -31,12 +31,15 @@ public class NavigationHelper extends HelperBase {
         wd.findElement(By.name("uploadFile")).sendKeys("C:\\contracts\\" + filename + ".txt");
     }
 
-    public void successfulUpload(Users user) {
-        user.withStatus("OK");
+
+    public void checkStatus(Users user) {
+        if (wd.findElement(status) == "OK") {
+            user.withStatus("OK");
+        } else if (wd.findElement(status) == "FAIL") {
+            user.withStatus("FAIL");
+        }
     }
-    public void failUpload(Users user) {
-        user.withStatus("FAIL");
-    }
+
 
     public void confirmUpload() {
         click(By.name("upload"));
