@@ -12,37 +12,46 @@ import java.util.List;
 /**
  * Created by kosty on 04.08.2016.
  */
+
 public class Main {
 
     protected static final ApplicationManager app = ApplicationManager.getInstance();
 
     public static void main(String[] args) throws Exception {
-
-
-        List<Users> users = getInfo();
+        String path = System.getProperty("Basepath", "C:/test1/test1.txt" );
+        String usersFile = System.getProperty("Usersfile", "C:/test1/test2.txt");
+        List<Users> users = getInfo(usersFile);
         for ( Users user :  users ) {
             app.init();
             app.goTo().contractsPage(user.getLogin(), user.getPassword());
-/*            app.navigationHelper.chooseFileContract(user.getUser());*/
-/*            app.navigationHelper.confirmUpload();*/
-            app.goTo().invoicesPage();
-            app.navigationHelper.chooseFileInvoice(user.getUser());
-/*            app.navigationHelper.confirmUpload();*/
+            Thread.sleep(1000);
+            app.navigationHelper.chooseFileContract(user.getUser(), path);
+            Thread.sleep(1000);
+            app.navigationHelper.confirmUpload();
+            Thread.sleep(1000);
+            app.navigationHelper.parseDocs();
+            Thread.sleep(1000);
+            app.navigationHelper.parseFinish();
+            Thread.sleep(1000);
             app.navigationHelper.checkStatus(user);
-
+            Thread.sleep(1000);
+            app.goTo().invoicesPage();
+            Thread.sleep(1000);
+            app.navigationHelper.chooseFileInvoice(user.getUser(), path);
+            Thread.sleep(1000);
+            app.navigationHelper.confirmUpload();
+            Thread.sleep(1000);
+/*          app.navigationHelper.checkStatus(user);*/
+            Thread.sleep(1000);
+            app.stop();
+            Thread.sleep(1000);
          }
-        app.navigationHelper.saveFile(users,(new File ("import/src/resources/users.csv")));
-        app.stop();
-
-
-
-
-
+        app.navigationHelper.saveFile(users,(new File (usersFile)));
     }
 
-    public static List<Users> getInfo() throws IOException {
+    public static List<Users> getInfo(String usersFile) throws IOException {
         List<Users> list = new ArrayList<Users>();
-        BufferedReader reader = new BufferedReader(new FileReader(new File("import/src/resources/users.csv")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File(usersFile)));
         String line = reader.readLine();
         while (line != null) {
             String[] split = line.split(";");
@@ -60,8 +69,5 @@ public class Main {
     public void tearDown() {
 
             }
-
-/*        https://agent.beeline.ru/operator/showUploadClientInvoices.do*/
-
     }
 

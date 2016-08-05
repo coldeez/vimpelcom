@@ -11,6 +11,8 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -26,15 +28,13 @@ public class ApplicationManager {
     private static ApplicationManager instance;
 
 
+
     public static ApplicationManager getInstance() {
         if(instance == null) {
             instance = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
         }
         return instance;
     }
-
-
-
     private ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
@@ -42,10 +42,9 @@ public class ApplicationManager {
 
 
     public void init() throws Exception {
-        ProfilesIni profile = new ProfilesIni();
-
-        FirefoxProfile myprofile = profile.getProfile("profileToolsQA");
-        wd = new FirefoxDriver(myprofile);
+/*      ProfilesIni profile = new ProfilesIni();
+        FirefoxProfile myprofile = profile.getProfile("profileToolsQA");*/
+        wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         navigationHelper = new NavigationHelper(wd);
     }

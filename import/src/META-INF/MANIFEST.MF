@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Class-Path: jaxen-1.1.1.jar serializer-2.7.2.jar mvel2-2.0.18.jar java
+ x.inject-1.jar selenium-remote-driver-2.52.0.jar commons-logging-1.2.
+ jar guice-servlet-3.0.jar commons-collections-3.2.2.jar websocket-api
+ -9.2.12.v20150709.jar commons-codec-1.10.jar commons-io-1.3.2.jar web
+ bit-0.4.14.jar gson-2.3.1.jar selenium-firefox-driver-2.52.0.jar jett
+ y-security-7.3.0.v20110203.jar netty-3.5.2.Final.jar jetty-servlet-7.
+ 3.0.v20110203.jar commons-exec-1.3.jar websocket-client-9.2.12.v20150
+ 709.jar commons-lang-2.5.jar jcip-annotations-1.0.jar selenium-chrome
+ -driver-2.52.0.jar htmlunit-core-js-2.17.jar icu4j-2.6.1.jar selenium
+ -api-2.52.0.jar commons-io-2.4.jar cssparser-0.9.16.jar jcommander-1.
+ 48.jar jetty-continuation-7.3.0.v20110203.jar commons-httpclient-3.1.
+ jar selenium-leg-rc-2.52.0.jar xpp3_min-1.1.4c.jar httpclient-4.5.1.j
+ ar browsermob-proxy-2.0-beta-2.jar jetty-util-9.2.12.v20150709.jar co
+ mmons-lang3-3.4.jar jetty-server-7.3.0.v20110203.jar selenium-safari-
+ driver-2.52.0.jar xercesImpl-2.11.0.jar xstream-1.3.1.jar jackson-cor
+ e-asl-1.7.1.jar jna-platform-4.1.0.jar asm-3.1.jar jna-4.1.0.jar ant-
+ 1.8.2.jar servlet-api-2.5.jar aopalliance-1.0.jar xmlParserAPIs-2.6.2
+ .jar selenium-support-2.52.0.jar nekohtml-1.9.22.jar cglib-2.2.1-v200
+ 90111.jar websocket-common-9.2.12.v20150709.jar saxpath-1.0-FCS.jar x
+ ml-apis-1.4.01.jar sac-1.3.jar bcprov-jdk16-1.43.jar httpmime-4.5.jar
+  freemarker-2.3.10.jar guice-multibindings-3.0.jar jopt-simple-3.2.ja
+ r guava-19.0.jar jackson-mapper-asl-1.7.1.jar jetty-http-7.3.0.v20110
+ 203.jar selenium-htmlunit-driver-2.52.0.jar bsh-2.0b4.jar jdom-1.0.ja
+ r jetty-io-9.2.12.v20150709.jar testng-6.9.10.jar htmlunit-2.18.jar j
+ soup-1.4.1.jar annotations-7.0.3.jar xalan-2.7.2.jar cglib-nodep-2.1_
+ 3.jar selenium-ie-driver-2.52.0.jar dom4j-1.6.1.jar selenium-edge-dri
+ ver-2.52.0.jar sitebricks-0.8.3.jar xom-1.0.jar ant-launcher-1.8.2.ja
+ r guice-3.0.jar httpcore-4.4.3.jar selenium-java-2.52.0.jar
+Main-Class: Main
+
