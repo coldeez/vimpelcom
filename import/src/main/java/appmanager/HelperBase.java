@@ -2,10 +2,11 @@ package appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
-import java.util.NoSuchElementException;
+
 
 /**
  * Created by kosty on 04.08.2016.
@@ -54,6 +55,7 @@ public class HelperBase {
             wd.findElement(locator);
             return true;
         } catch (NoSuchElementException ex) {
+            System.out.println(ex);
             return false;
         }
     }

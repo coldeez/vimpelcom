@@ -39,9 +39,9 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void checkStatus(Users user) {
-        if (isElementPresent(By.xpath("//th[contains(text(), '...Протокол ошибок загрузки данных')]"))) {
+        if (!isElementPresent(By.xpath("//th[contains(text(), '...Протокол ошибок загрузки данных')]"))) {
             user.withStatus("OK");
-        } else if (!isElementPresent(By.xpath("//th[contains(text(), '...Протокол ошибок загрузки данных')]"))) {
+        } else if (isElementPresent(By.xpath("//th[contains(text(), '...Протокол ошибок загрузки данных')]"))) {
             user.withStatus("FAIL");
         }
     }
@@ -69,33 +69,29 @@ public class NavigationHelper extends HelperBase {
 
     public Boolean waitForElement(By locator) {
         try {
-            (new WebDriverWait(wd, 1000)).until(new ExpectedCondition<Boolean>() {
+            (new WebDriverWait(wd, 1)).until(new ExpectedCondition<Boolean>() {
                 public Boolean apply(WebDriver d) {
                     try {
                         return wd.findElement(locator).isDisplayed();
                     }
-                    catch (NoSuchElementException e) {
+                    catch (NoSuchElementException ex) {
                         return false;
                     }
                 }
             });
         }
-        catch (NoSuchElementException e) {
+        catch (NoSuchElementException ignored) {
             return false;
         }
         return true;
     }
 
     public void parseFinish() throws InterruptedException {
-        int n = 0;
-        while
-                (waitForElement(By.xpath("input[@onclick='returnToStart()']"))
-                && waitForElement(By.className("sortable"))
-                && n > 22000) {
-            click(By.xpath("input[@onclick='returnToStart()']"));
+        while (!isElementPresent(By.className("sortable"))) {
+            if (isElementPresent(By.xpath("input[@onclick='returnToStart()']"))) {
+                click(By.xpath("input[@onclick='returnToStart()']"));
+            }
             Thread.sleep(2000);
-            n++;
         }
-        waitForElement(By.className("sortable"));
     }
 }
