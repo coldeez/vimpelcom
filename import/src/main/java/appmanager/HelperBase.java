@@ -19,7 +19,12 @@ public class HelperBase {
     }
 
     protected void click(By locator) {
-        wd.findElement(locator).click();
+        try {
+            wd.findElement(locator).click();
+        }
+        catch (NoSuchElementException ex) {
+            System.out.println(ex);
+        }
     }
 
     protected void type(By locator, String text) {

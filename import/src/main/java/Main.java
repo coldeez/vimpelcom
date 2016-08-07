@@ -24,29 +24,22 @@ public class Main {
         for ( Users user :  users ) {
             app.init();
             app.goTo().contractsPage(user.getLogin(), user.getPassword());
-            Thread.sleep(1000);
             app.navigationHelper.chooseFileContract(user.getUser(), path);
-            Thread.sleep(1000);
             app.navigationHelper.confirmUpload();
-            Thread.sleep(1000);
             app.navigationHelper.parseDocs();
-            Thread.sleep(1000);
             app.navigationHelper.parseFinish();
-            Thread.sleep(1000);
-            app.navigationHelper.checkStatus(user);
-            Thread.sleep(1000);
+            app.navigationHelper.checkContractStatus(user);
             app.goTo().invoicesPage();
-            Thread.sleep(1000);
             app.navigationHelper.chooseFileInvoice(user.getUser(), path);
-            Thread.sleep(1000);
             app.navigationHelper.confirmUpload();
-            Thread.sleep(1000);
-/*          app.navigationHelper.checkStatus(user);*/
-            Thread.sleep(1000);
+            app.navigationHelper.parseDocs();
+            app.navigationHelper.parseFinish();
+            app.navigationHelper.checkInvoiceStatus(user);
             app.stop();
             Thread.sleep(1000);
+            app.navigationHelper.saveFile(users,(new File (usersFile)));
          }
-        app.navigationHelper.saveFile(users,(new File (usersFile)));
+
     }
 
     public static List<Users> getInfo(String usersFile) throws IOException {

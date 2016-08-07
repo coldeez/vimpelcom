@@ -7,7 +7,8 @@ public class Users {
     String user;
     String login;
     String password;
-    String status;
+    String contractStatus;
+    String invoiceStatus;
 
     public String getUser() {
         return user;
@@ -36,12 +37,21 @@ public class Users {
         return this;
     }
 
-    public String getStatus() {
-        return status;
+    public String getContractStatus() {
+        return contractStatus;
     }
 
-    public Users withStatus(String status) {
-        this.status = status;
+    public Users withContractStatus(String status) {
+        this.contractStatus = status;
+        return this;
+    }
+
+    public String getInvoiceStatus() {
+        return invoiceStatus;
+    }
+
+    public Users withInvoiceStatus(String status) {
+        this.invoiceStatus = status;
         return this;
     }
 

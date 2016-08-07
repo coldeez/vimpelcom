@@ -1,19 +1,9 @@
 package appmanager;
 
-import org.browsermob.proxy.ProxyServer;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
