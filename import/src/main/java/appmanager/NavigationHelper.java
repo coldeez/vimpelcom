@@ -1,9 +1,8 @@
 package appmanager;
 
 import model.Users;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -45,7 +44,7 @@ public class NavigationHelper extends HelperBase {
 
     }
 
-    public void checkContractStatus(Users user) throws InterruptedException {
+    public void checkContractStatus(Users user, String filename, String path) throws InterruptedException, IOException {
         int n = 0;
         while (!isElementPresent(By.name("upload")) && n < 100) {
             Thread.sleep(1000);
@@ -54,11 +53,13 @@ public class NavigationHelper extends HelperBase {
             user.withContractStatus("OK");
         } else if (isElementPresent(By.xpath("//th[contains(text(), 'Протокол ошибок загрузки данных')]"))) {
             user.withContractStatus("FAIL");
+            File scrFile = ((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File(path + "\\screenshots\\contract_" + filename + ".png"));
         }
 
     }
 
-    public void checkInvoiceStatus(Users user) throws InterruptedException {
+    public void checkInvoiceStatus(Users user, String filename, String path) throws InterruptedException, IOException {
         int n = 0;
         while (!isElementPresent(By.name("upload")) && n < 100) {
             Thread.sleep(1000);
@@ -67,6 +68,8 @@ public class NavigationHelper extends HelperBase {
             user.withInvoiceStatus("OK");
         } else if (isElementPresent(By.xpath("//th[contains(text(), 'Протокол ошибок загрузки данных')]"))) {
             user.withInvoiceStatus("FAIL");
+            File scrFile = ((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File(path + "\\screenshots\\invoice_" + filename + ".png"));
         }
     }
 
@@ -112,7 +115,7 @@ public class NavigationHelper extends HelperBase {
 
     public void parseFinish() throws InterruptedException {
         int n = 0;
-        while (!isElementPresent(By.className("sortable")) && n < 100 && !isElementPresent(By.xpath("//b[contains(text(),'Данные успешно обработаны.')]"))) {
+        while (!isElementPresent(By.className("sortable")) && n < 18000 && !isElementPresent(By.xpath("//b[contains(text(),'Данные успешно обработаны.')]"))) {
             if (isElementPresent(By.xpath("//input[@onclick='returnToStart()']"))) {
                 click(By.xpath("//input[@onclick='returnToStart()']"));
             }

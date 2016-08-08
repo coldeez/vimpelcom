@@ -28,13 +28,13 @@ public class Main {
             app.navigationHelper.confirmUpload();
             app.navigationHelper.parseDocs();
             app.navigationHelper.parseFinish();
-            app.navigationHelper.checkContractStatus(user);
+            app.navigationHelper.checkContractStatus(user, user.getUser(), path);
             app.goTo().invoicesPage();
             app.navigationHelper.chooseFileInvoice(user.getUser(), path);
             app.navigationHelper.confirmUpload();
             app.navigationHelper.parseDocs();
             app.navigationHelper.parseFinish();
-            app.navigationHelper.checkInvoiceStatus(user);
+            app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
             app.stop();
             Thread.sleep(1000);
             app.navigationHelper.saveFile(users,(new File (usersFile)));
