@@ -77,6 +77,7 @@ public class NavigationHelper extends HelperBase {
     public void confirmUpload() {
         click(By.name("upload"));
     }
+
     public void saveFile(List<Users> users, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (Users user : users) {

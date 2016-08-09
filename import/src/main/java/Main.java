@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by kosty on 04.08.2016.
  */
-
 public class Main {
 
     protected static final ApplicationManager app = ApplicationManager.getInstance();
@@ -24,17 +23,21 @@ public class Main {
         for ( Users user :  users ) {
             app.init();
             app.goTo().contractsPage(user.getLogin(), user.getPassword());
-            app.navigationHelper.chooseFileContract(user.getUser(), path);
-            app.navigationHelper.confirmUpload();
-            app.navigationHelper.parseDocs();
-            app.navigationHelper.parseFinish();
-            app.navigationHelper.checkContractStatus(user, user.getUser(), path);
-            app.goTo().invoicesPage();
-            app.navigationHelper.chooseFileInvoice(user.getUser(), path);
-            app.navigationHelper.confirmUpload();
-            app.navigationHelper.parseDocs();
-            app.navigationHelper.parseFinish();
-            app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
+            if (user.getContractStatus().equals("FAIL") || user.getContractStatus().equals("null")) {
+                app.navigationHelper.chooseFileContract(user.getUser(), path);
+                app.navigationHelper.confirmUpload();
+                app.navigationHelper.parseDocs();
+                app.navigationHelper.parseFinish();
+                app.navigationHelper.checkContractStatus(user, user.getUser(), path);
+            }
+            if (user.getInvoiceStatus().equals("FAIL") || user.getInvoiceStatus().equals("null")) {
+                app.goTo().invoicesPage();
+                app.navigationHelper.chooseFileInvoice(user.getUser(), path);
+                app.navigationHelper.confirmUpload();
+                app.navigationHelper.parseDocs();
+                app.navigationHelper.parseFinish();
+                app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
+            }
             app.stop();
             Thread.sleep(1000);
             app.navigationHelper.saveFile(users,(new File (usersFile)));
@@ -48,7 +51,9 @@ public class Main {
         String line = reader.readLine();
         while (line != null) {
             String[] split = line.split(";");
-            list.add(new Users().withUsername(split[0]).withLogin(split[1]).withPassword(split[2]));
+            list.add(new Users()
+                    .withUsername(split[0]).withLogin(split[1])
+                    .withPassword(split[2]).withContractStatus(split[3]).withInvoiceStatus(split[4]));
             line = reader.readLine();
         }
         return list;
