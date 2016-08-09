@@ -38,6 +38,7 @@ public class Main {
                     app.navigationHelper.parseDocs();
                     app.navigationHelper.parseFinish();
                     app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
+                    app.navigationHelper.InvoicesHistoryScreen(user.getUser(), path);
                 }
             }
             app.stop();

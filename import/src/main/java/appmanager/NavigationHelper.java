@@ -30,6 +30,13 @@ public class NavigationHelper extends HelperBase {
         wd.get("https://agentdemo.beeline.ru/operator/showUploadClientInvoices.do");
     }
 
+    public void InvoicesHistoryScreen(String filename, String path) throws IOException {
+        wd.get("https://agentdemo.beeline.ru/operator/showInvoicesUpload.do");
+        File scrFile = ((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File(path + "\\screenshots\\history\\history_" + filename + ".png"));
+
+    }
+
     public void chooseFileContract(String filename, String path) {
         wd.findElement(By.name("uploadFile")).sendKeys(path + "\\contracts\\" + filename + ".csv");
     }
