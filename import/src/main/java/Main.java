@@ -29,6 +29,10 @@ public class Main {
                 app.navigationHelper.parseDocs();
                 app.navigationHelper.parseFinish();
                 app.navigationHelper.checkContractStatus(user, user.getUser(), path);
+                if (user.getContractStatus().equals("FAIL")) {
+                    app.navigationHelper.SendEmail
+                            (user.getUser() + " : " + user.getContractStatus(), path, "contract_", user.getUser());
+                }
             }
             if (user.getInvoiceStatus().equals("FAIL") || user.getInvoiceStatus().equals("null")) {
                 if (user.getContractStatus().equals("OK")) {
@@ -39,6 +43,10 @@ public class Main {
                     app.navigationHelper.parseFinish();
                     app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
                     app.navigationHelper.InvoicesHistoryScreen(user.getUser(), path);
+                    if (user.getInvoiceStatus().equals("FAIL")) {
+                        app.navigationHelper.SendEmail
+                                (user.getUser() + " : " + user.getInvoiceStatus(), path, "invoice_", user.getUser());
+                    }
                 }
             }
             app.stop();

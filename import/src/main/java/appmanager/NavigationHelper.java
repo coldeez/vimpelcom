@@ -6,11 +6,20 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -130,5 +139,45 @@ public class NavigationHelper extends HelperBase {
             n++;
             Thread.sleep(2000);
         }
+    }
+
+    public void SendEmail(String messageText, String path, String doc, String filename) {
+
+        String to = "k.balashov@mangotele.com";         // sender email
+        String from = "vimpelcom_autoimport@mangotele.com";       // receiver email
+        String host = "mx1.mangotele.com";            // mail server host
+
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", host);
+
+
+
+        Session session = Session.getDefaultInstance(properties); // default session
+
+        try {
+            MimeMessage message = new MimeMessage(session); // email message
+            MimeMultipart multipart = new MimeMultipart();
+            message.setFrom(new InternetAddress(from)); // setting header fields
+
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            message.setSubject("Вымпелком автоимпорт"); // subject line
+
+            // actual mail body
+            message.setText(messageText);
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(messageText, "text/html");
+            multipart.addBodyPart(messageBodyPart);
+            messageBodyPart = new MimeBodyPart();
+            DataSource fds = new FileDataSource(
+                    path + "\\screenshots\\" + doc + filename + ".png");
+
+            messageBodyPart.setDataHandler(new DataHandler(fds));
+            messageBodyPart.setHeader("Content-ID", "<image>");
+            message.setContent(multipart);
+            // Send message
+            Transport.send(message); System.out.println("Email Sent successfully....");
+        } catch (MessagingException mex){ mex.printStackTrace(); }
+
     }
 }
