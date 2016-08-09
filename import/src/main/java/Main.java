@@ -31,12 +31,14 @@ public class Main {
                 app.navigationHelper.checkContractStatus(user, user.getUser(), path);
             }
             if (user.getInvoiceStatus().equals("FAIL") || user.getInvoiceStatus().equals("null")) {
-                app.goTo().invoicesPage();
-                app.navigationHelper.chooseFileInvoice(user.getUser(), path);
-                app.navigationHelper.confirmUpload();
-                app.navigationHelper.parseDocs();
-                app.navigationHelper.parseFinish();
-                app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
+                if (user.getContractStatus().equals("OK")) {
+                    app.goTo().invoicesPage();
+                    app.navigationHelper.chooseFileInvoice(user.getUser(), path);
+                    app.navigationHelper.confirmUpload();
+                    app.navigationHelper.parseDocs();
+                    app.navigationHelper.parseFinish();
+                    app.navigationHelper.checkInvoiceStatus(user, user.getUser(), path);
+                }
             }
             app.stop();
             Thread.sleep(1000);
